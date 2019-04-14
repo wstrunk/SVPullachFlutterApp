@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:flutter_app/src/Widgets/SvpDrawer.dart';
 import 'package:flutter_app/src/Widgets/SvpScaffold.dart';
 
 class TeamPage extends StatefulWidget {
@@ -78,10 +77,10 @@ class _TeamPageState extends State<TeamPage> {
                   ),
                   IconButton(
                     onPressed: () {
-                      snapshot.reference.updateData({"isDone": true});
+                      //snapshot.reference.updateData({"isDone": true});
                     },
                     icon: Icon(
-                      Icons.delete,
+                      Icons.group,
                       color: Colors.blue,
                     ),
                   ),

@@ -1,41 +1,22 @@
-import 'dart:async';
-
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter_app/src/Widgets/SvpDrawer.dart';
 import 'package:flutter_app/src/Widgets/SvpScaffold.dart';
-import 'package:google_maps_webservice/places.dart';
-import 'package:flutter_google_places/flutter_google_places.dart';
-import 'package:google_maps_flutter/google_maps_flutter.dart';
-import 'package:location/location.dart' as LocationManager;
-//import 'place_detail.dart';
 
-const kGoogleApiKey = "AIzaSyDC29de9wdqNQCx3IWgUy0q9sl9jn9t73w";
-GoogleMapsPlaces _places = GoogleMapsPlaces(apiKey: kGoogleApiKey);
-
-
-class LocationPage extends StatefulWidget {
+class GameEventPage extends StatefulWidget {
 
   @override
-  _LocationPageState createState() => _LocationPageState();
+  _GameEventPageState createState() => _GameEventPageState();
 
 
 }
 
-class _LocationPageState extends State<LocationPage> {
-  Completer<GoogleMapController> _mapController = Completer();
-  static const LatLng _center = const LatLng(48.060286, 11.513958);
-
+class _GameEventPageState extends State<GameEventPage> {
+  @override
   @override
   Widget build(BuildContext context) {
     return SvpScaffold(
-/*
-      appBar: AppBar(
-        title: Text('Mannschaften'),
-        actions: <Widget>[
-        ],
-      ),
-*/
       body: Column(
         children: <Widget>[
           _buildContent(context),
@@ -46,11 +27,17 @@ class _LocationPageState extends State<LocationPage> {
   }
 
   Widget _buildContent(BuildContext context) {
+    var now = new DateTime.now();
+    var dayString = now.day.toString();
+    if (dayString.length < 2) { dayString = "0" + dayString ;}
+    var monthString = now.month.toString();
+    if (monthString.length < 2) { monthString = "0" + monthString;}
+    var nowString = dayString  + "." + monthString + "." + now.year.toString();
     return Expanded(
       child: StreamBuilder<QuerySnapshot>(
         stream: Firestore.instance
-            .collection("courts")
-        .orderBy("courtName")
+            .collection("game_events")
+            .where("day", isGreaterThanOrEqualTo: nowString)
             .snapshots(),
         builder: (context, snapshot) {
           if (!snapshot.hasData) return LinearProgressIndicator();
@@ -79,7 +66,7 @@ class _LocationPageState extends State<LocationPage> {
                     child: Padding(
                       padding: const EdgeInsets.all(16.0),
                       child: Text(
-                        snapshot.data['courtName'],
+                        snapshot.data['gameNo'],
                         maxLines: 1,
                         overflow: TextOverflow.ellipsis,
                         style: TextStyle(
@@ -90,10 +77,10 @@ class _LocationPageState extends State<LocationPage> {
                   ),
                   IconButton(
                     onPressed: () {
-                      // call maps
+                      //snapshot.reference.updateData({"isDone": true});
                     },
                     icon: Icon(
-                      Icons.map,
+                      Icons.event,
                       color: Colors.blue,
                     ),
                   ),
@@ -101,26 +88,15 @@ class _LocationPageState extends State<LocationPage> {
               ),
               Text(
 //                List<String>  trainer= new List<String>.from(snapshot.data['trainer']);
-                snapshot.data['address'],
+                snapshot.data['day']. toString(),
                 maxLines: 1,
                 overflow: TextOverflow.ellipsis,
                 style: TextStyle(
                   fontWeight: FontWeight.bold,
                 ),
               ),
-/*              GoogleMap(
-                onMapCreated: _onMapCreated,
-                initialCameraPosition: CameraPosition(
-                  target: _center,
-                  zoom: 11.0,
-                ),
-              ),*/
             ])
     );
   }
-  void _onMapCreated(GoogleMapController controller) {
-    _mapController.complete(controller);
-  }
-
 
 }

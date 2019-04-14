@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_app/src/GameEventPage.dart';
 import 'package:flutter_app/src/LocationPage.dart';
 import 'package:flutter_app/src/TeamPage.dart';
 
@@ -30,10 +31,12 @@ class SvpDrawer extends StatelessWidget {
           ListTile(
             title: Text('nächste Spiele'),
             onTap: () {
-              // Update the state of the app
-              // ...
-              // Then close the drawer
               Navigator.pop(context);
+              // Update the state of the app
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => GameEventPage ()),
+              );
             },
           ),
           ListTile(
