@@ -1,8 +1,6 @@
 // This sample shows adding an action to an [AppBar] that opens a shopping cart.
 
 import 'package:flutter/material.dart';
-import 'package:flutter_app/src/TeamPage.dart';
-import 'package:flutter_app/src/Widgets/SvpDrawer.dart';
 import 'package:flutter_app/src/Widgets/SvpScaffold.dart';
 
 void main() => runApp(MyApp());

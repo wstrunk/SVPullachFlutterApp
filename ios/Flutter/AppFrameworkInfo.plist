@@ -22,5 +22,7 @@
   <string>1.0</string>
   <key>MinimumOSVersion</key>
   <string>8.0</string>
+  <key>NSCalendarsUsageDescription</key>
+  <string>Adding games to the calendar</string>
 </dict>
 </plist>
