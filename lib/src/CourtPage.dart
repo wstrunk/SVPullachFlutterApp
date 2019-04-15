@@ -52,8 +52,8 @@ class _CourtPageState extends State<CourtPage> {
           _buildLocations(snapshot.data.documents);
           return ListView(
             padding: EdgeInsets.all(16),
-            children: snapshot.data.documents
-                .map((snap) => _buildCard(context, snap))
+            children: _places
+                .map((court) => _buildCard(context, court))
                 .toList(),
           );
         },
@@ -61,7 +61,7 @@ class _CourtPageState extends State<CourtPage> {
     );
   }
 
-  Widget _buildCard(BuildContext context, DocumentSnapshot snapshot) {
+  Widget _buildCard(BuildContext context, Court court) {
     return Card(
         elevation: 2.0,
         margin: EdgeInsets.only(bottom: 16),
@@ -74,7 +74,7 @@ class _CourtPageState extends State<CourtPage> {
                     child: Padding(
                       padding: const EdgeInsets.all(16.0),
                       child: Text(
-                        snapshot.data['courtName'],
+                        court.courtName,
                         maxLines: 1,
                         overflow: TextOverflow.ellipsis,
                         style: TextStyle(
@@ -103,8 +103,7 @@ class _CourtPageState extends State<CourtPage> {
                 ],
               ),
               Text(
-//                List<String>  trainer= new List<String>.from(snapshot.data['trainer']);
-                snapshot.data['address'],
+                court.address,
                 maxLines: 1,
                 overflow: TextOverflow.ellipsis,
                 style: TextStyle(
