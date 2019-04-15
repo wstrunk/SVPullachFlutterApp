@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_app/src/GameEventPage.dart';
-import 'package:flutter_app/src/LocationPage.dart';
+import 'package:flutter_app/src/CourtPage.dart';
 import 'package:flutter_app/src/TeamPage.dart';
 
 class SvpDrawer extends StatelessWidget {
@@ -70,7 +70,7 @@ class SvpDrawer extends StatelessWidget {
               // Update the state of the app
               Navigator.push(
                 context,
-                MaterialPageRoute(builder: (context) => LocationPage()),
+                MaterialPageRoute(builder: (context) => CourtPage()),
               );
               // ...
             },

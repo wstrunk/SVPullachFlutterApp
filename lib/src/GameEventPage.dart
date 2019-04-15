@@ -70,7 +70,9 @@ class _GameEventPageState extends State<GameEventPage> {
       child: StreamBuilder<QuerySnapshot>(
         stream: Firestore.instance
             .collection("game_events")
-            .where("day", isGreaterThanOrEqualTo: nowString)
+//            .where("day", isGreaterThanOrEqualTo: nowString)
+        .orderBy("day")
+        .orderBy("league")
             .snapshots(),
         builder: (context, snapshot) {
           if (!snapshot.hasData) return LinearProgressIndicator();
@@ -99,7 +101,7 @@ class _GameEventPageState extends State<GameEventPage> {
                     child: Padding(
                       padding: const EdgeInsets.all(16.0),
                       child: Text(
-                        snapshot.data['gameNo'],
+                        snapshot.data['gameNo'] + " " +snapshot.data['league'],
                         maxLines: 1,
                         overflow: TextOverflow.ellipsis,
                         style: TextStyle(
@@ -121,7 +123,7 @@ class _GameEventPageState extends State<GameEventPage> {
               ),
               Text(
 //                List<String>  trainer= new List<String>.from(snapshot.data['trainer']);
-                snapshot.data['day'].toString(),
+                snapshot.data['day'].toString() + " " + snapshot.data['time'].toString(),
                 maxLines: 1,
                 overflow: TextOverflow.ellipsis,
                 style: TextStyle(
