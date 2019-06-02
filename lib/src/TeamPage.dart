@@ -1,6 +1,10 @@
+import 'dart:collection';
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter_app/src/Team.dart';
 import 'package:flutter_app/src/Widgets/SvpScaffold.dart';
 
 class TeamPage extends StatefulWidget {
@@ -16,13 +20,6 @@ class _TeamPageState extends State<TeamPage> {
   @override
   Widget build(BuildContext context) {
     return SvpScaffold(
-/*
-      appBar: AppBar(
-        title: Text('Mannschaften'),
-        actions: <Widget>[
-        ],
-      ),
-*/
       body: Column(
         children: <Widget>[
           _buildContent(context),
@@ -53,7 +50,13 @@ class _TeamPageState extends State<TeamPage> {
     );
   }
 
+  static const double edgeInset = 8.0;
+
   Widget _buildCard(BuildContext context, DocumentSnapshot snapshot) {
+    // we should create a team object here
+    var aTeam = new Team.fromSnapshot(snapshot);
+
+
     return Card(
         elevation: 2.0,
         margin: EdgeInsets.only(bottom: 16),
@@ -64,9 +67,10 @@ class _TeamPageState extends State<TeamPage> {
                 children: <Widget>[
                   Flexible(
                     child: Padding(
-                      padding: const EdgeInsets.all(16.0),
+                      padding: const EdgeInsets.all(edgeInset),
                       child: Text(
-                        snapshot.data['name'],
+                        aTeam.teamName,
+                        //snapshot.data['name'],
                         maxLines: 1,
                         overflow: TextOverflow.ellipsis,
                         style: TextStyle(
@@ -80,23 +84,81 @@ class _TeamPageState extends State<TeamPage> {
                       //snapshot.reference.updateData({"isDone": true});
                     },
                     icon: Icon(
-                      Icons.group,
+                      Icons.contacts,
                       color: Colors.blue,
                     ),
                   ),
                 ],
               ),
-              Text(
-//                List<String>  trainer= new List<String>.from(snapshot.data['trainer']);
-                snapshot.data['trainer']. toString(),
-                maxLines: 1,
-                overflow: TextOverflow.ellipsis,
-                style: TextStyle(
-                  fontWeight: FontWeight.bold,
-                ),
+              Row(
+                children: <Widget>[
+                  Flexible(
+                    child: Padding(
+                      padding: const EdgeInsets.all(edgeInset),
+                      child: Text(
+                        //buildTrainingString(snapshot.data['training1']),
+                        aTeam.training1,
+                        maxLines: 1,
+                        overflow: TextOverflow.ellipsis,
+                        style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+              Row(
+                children: <Widget>[
+                  Flexible(
+                    child: Padding(
+                      padding: const EdgeInsets.all(edgeInset),
+                      child: Text(
+                        aTeam.getTrainerList(),
+                        //buildTrainerList(snapshot.data['trainer']),
+                        maxLines: 1,
+                        overflow: TextOverflow.ellipsis,
+                        style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                    ),
+                  ),
+                ],
               ),
             ])
     );
   }
 
+  String buildTrainingString(data) {
+    String training = "";
+
+    if (data != null) {
+      training = "Training: ";
+      Map trainingMap = new Map<String, dynamic>.from(data);
+      training = training + trainingMap['day'];
+      training = training + ", " + trainingMap['time'];
+      training = training + ", " + trainingMap['location'];
+    }
+    return training;
+  }
+
+  String buildTrainerList(value) {
+    String trainers = "";
+    if (value != null) {
+      trainers = "Trainer: ";
+      Map trainersMap = new Map<String, dynamic>.from(value);
+      trainers = trainers + trainersMap['head'];
+      if (trainersMap.containsKey('support1')) {
+        trainers = trainers + ", " + trainersMap['support1'];
+      }
+      if (trainersMap.containsKey('support2')) {
+        trainers = trainers + ", " + trainersMap['support2'];
+      }
+      if (trainersMap.containsKey('support3')) {
+        trainers = trainers + ", " + trainersMap['support3'];
+      }
+    }
+    return trainers;
+  }
 }

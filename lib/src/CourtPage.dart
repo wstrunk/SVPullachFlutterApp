@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter_app/src/Court.dart';
+import 'package:flutter_app/src/CourtDetails.dart';
 import 'package:flutter_app/src/Widgets/SvpScaffold.dart';
 import 'package:google_maps_webservice/places.dart';
 import 'package:flutter_google_places/flutter_google_places.dart';
@@ -14,13 +15,9 @@ import 'package:location/location.dart' as LocationManager;
 const kGoogleApiKey = "AIzaSyDC29de9wdqNQCx3IWgUy0q9sl9jn9t73w";
 GoogleMapsPlaces _places = GoogleMapsPlaces(apiKey: kGoogleApiKey);
 
-
 class CourtPage extends StatefulWidget {
-
   @override
   _CourtPageState createState() => _CourtPageState();
-
-
 }
 
 class _CourtPageState extends State<CourtPage> {
@@ -36,7 +33,6 @@ class _CourtPageState extends State<CourtPage> {
           _buildContent(context),
         ],
       ),
-
     );
   }
 
@@ -52,9 +48,8 @@ class _CourtPageState extends State<CourtPage> {
           _buildLocations(snapshot.data.documents);
           return ListView(
             padding: EdgeInsets.all(16),
-            children: _places
-                .map((court) => _buildCard(context, court))
-                .toList(),
+            children:
+                _places.map((court) => _buildCard(context, court)).toList(),
           );
         },
       ),
@@ -65,51 +60,54 @@ class _CourtPageState extends State<CourtPage> {
     return Card(
         elevation: 2.0,
         margin: EdgeInsets.only(bottom: 16),
-        child: Column(
+        child: Column(children: <Widget>[
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: <Widget>[
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: <Widget>[
-                  Flexible(
-                    child: Padding(
-                      padding: const EdgeInsets.all(16.0),
-                      child: Text(
-                        court.courtName,
-                        maxLines: 1,
-                        overflow: TextOverflow.ellipsis,
-                        style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
+              Flexible(
+                child: Padding(
+                  padding: const EdgeInsets.all(16.0),
+                  child: Text(
+                    court.courtName,
+                    maxLines: 1,
+                    overflow: TextOverflow.ellipsis,
+                    style: TextStyle(
+                      fontWeight: FontWeight.bold,
                     ),
                   ),
-                  IconButton(
-                    onPressed: () {
-                      // call maps
-/*                      => Navigator.push(
-                          context,
-                          MaterialPageRoute(builder: (context) {
-                        return LocationDetails(
-                          place: place,
-                          onChanged: (Place value) => onPlaceChanged(value),
-                        );
-                      }),*/
-                    },
-                    icon: Icon(
-                      Icons.map,
-                      color: Colors.blue,
-                    ),
-                  ),
-                ],
-              ),
-              Text(
-                court.address,
-                maxLines: 1,
-                overflow: TextOverflow.ellipsis,
-                style: TextStyle(
-                  fontWeight: FontWeight.bold,
                 ),
               ),
+              IconButton(
+                onPressed: ()
+                    // call maps
+                    =>
+                    Navigator.push(context, MaterialPageRoute(
+                      builder: (context) {
+                        return CourtDetails(
+                          place: court,
+                        );
+                      },
+                    )),
+                icon: Icon(
+                  Icons.map,
+                  color: Colors.blue,
+                ),
+              ),
+            ],
+          ),
+          Divider(
+            height: 1.0,
+            color: Colors.grey[700],
+          ),
+          Text(
+            court.address,
+            maxLines: 1,
+            overflow: TextOverflow.ellipsis,
+            textAlign: TextAlign.left,
+            style: TextStyle(
+              fontWeight: FontWeight.normal,
+            ),
+          ),
 /*              GoogleMap(
                 onMapCreated: _onMapCreated,
                 initialCameraPosition: CameraPosition(
@@ -117,20 +115,29 @@ class _CourtPageState extends State<CourtPage> {
                   zoom: 11.0,
                 ),
               ),*/
-    ])
-    );
+        ]));
   }
 
   void _onMapCreated(GoogleMapController controller) {
     _mapController.complete(controller);
   }
 
-  _buildLocations (List<DocumentSnapshot> snapshots) {
+  _buildLocations(List<DocumentSnapshot> snapshots) {
     Court newCourt = null;
+    LatLng newLatLng = null;
+
     if (snapshots != null) {
       for (DocumentSnapshot snap in snapshots) {
-        newCourt = new Court(courtNo: snap.data['courtNo'],
-            latLng: null,
+        if (snap.data['latitude'] != null){
+          newLatLng =  new LatLng(
+            double.parse(snap.data['latitude'].toString()),
+            double.parse(snap.data['longitude'].toString()
+            ),
+          );
+        }
+        newCourt = new Court(
+            courtNo: snap.data['courtNo'],
+            latLng : newLatLng,
             courtName: snap.data['courtName'],
             address: snap.data['address'],
             courtUrl: snap.data['courtUrl']);
