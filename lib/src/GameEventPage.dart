@@ -18,6 +18,9 @@ class _GameEventPageState extends State<GameEventPage> {
   _GameEventPageState() {
   }
 
+  static const double edgeInsetLeft = 16.0;
+  static const double edgeInsetBottom = 10.0;
+
   @override
   initState() {
     super.initState();
@@ -70,7 +73,7 @@ class _GameEventPageState extends State<GameEventPage> {
       child: StreamBuilder<QuerySnapshot>(
         stream: Firestore.instance
             .collection("game_events")
-//            .where("day", isGreaterThanOrEqualTo: nowString)
+            .where("day", isGreaterThanOrEqualTo: nowString)
         .orderBy("day")
         .orderBy("league")
             .snapshots(),
@@ -99,9 +102,9 @@ class _GameEventPageState extends State<GameEventPage> {
                 children: <Widget>[
                   Flexible(
                     child: Padding(
-                      padding: const EdgeInsets.all(16.0),
+                      padding: const EdgeInsets.only(left: edgeInsetLeft,  top: edgeInsetBottom),
                       child: Text(
-                        snapshot.data['gameNo'] + " " +snapshot.data['league'],
+                        snapshot.data['day'].toString() + " " + snapshot.data['time'].toString(),
                         maxLines: 1,
                         overflow: TextOverflow.ellipsis,
                         style: TextStyle(
@@ -121,14 +124,42 @@ class _GameEventPageState extends State<GameEventPage> {
                   ),
                 ],
               ),
-              Text(
+              Row(
+                children: <Widget>[
+                  Flexible(
+                    child: Padding(
+                      padding: const EdgeInsets.only(left: edgeInsetLeft,  top: edgeInsetBottom),
+                      child: Text(
 //                List<String>  trainer= new List<String>.from(snapshot.data['trainer']);
-                snapshot.data['day'].toString() + " " + snapshot.data['time'].toString(),
-                maxLines: 1,
-                overflow: TextOverflow.ellipsis,
-                style: TextStyle(
-                  fontWeight: FontWeight.bold,
-                ),
+                        snapshot.data['homeTeam'] + " - " + snapshot.data['guestTeam'],
+                        maxLines: 1,
+                        overflow: TextOverflow.ellipsis,
+                        style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+              Row(
+                children: <Widget>[
+                  Flexible(
+                    child: Padding(
+                      padding: const EdgeInsets.only(left: edgeInsetLeft,  top: edgeInsetBottom),
+                      child: Text(
+//                List<String>  trainer= new List<String>.from(snapshot.data['trainer']);
+                        snapshot.data['league'] + ", Spielnr.: " +
+                            snapshot.data['gameNo'],
+                        maxLines: 1,
+                        overflow: TextOverflow.ellipsis,
+                        style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                    ),
+                  ),
+                ],
               ),
             ])
     );

@@ -50,7 +50,9 @@ class _TeamPageState extends State<TeamPage> {
     );
   }
 
-  static const double edgeInset = 8.0;
+  static const double edgeInsetLeft = 16.0;
+  static const double edgeInsetBottom = 10.0;
+
 
   Widget _buildCard(BuildContext context, DocumentSnapshot snapshot) {
     // we should create a team object here
@@ -67,7 +69,7 @@ class _TeamPageState extends State<TeamPage> {
                 children: <Widget>[
                   Flexible(
                     child: Padding(
-                      padding: const EdgeInsets.all(edgeInset),
+                      padding: const EdgeInsets.only(left: edgeInsetLeft,  top: edgeInsetBottom),
                       child: Text(
                         aTeam.teamName,
                         //snapshot.data['name'],
@@ -84,7 +86,7 @@ class _TeamPageState extends State<TeamPage> {
                       //snapshot.reference.updateData({"isDone": true});
                     },
                     icon: Icon(
-                      Icons.contacts,
+                      Icons.email,
                       color: Colors.blue,
                     ),
                   ),
@@ -94,9 +96,8 @@ class _TeamPageState extends State<TeamPage> {
                 children: <Widget>[
                   Flexible(
                     child: Padding(
-                      padding: const EdgeInsets.all(edgeInset),
+                      padding: const EdgeInsets.only(left: edgeInsetLeft,  top: edgeInsetBottom),
                       child: Text(
-                        //buildTrainingString(snapshot.data['training1']),
                         aTeam.training1,
                         maxLines: 1,
                         overflow: TextOverflow.ellipsis,
@@ -112,10 +113,9 @@ class _TeamPageState extends State<TeamPage> {
                 children: <Widget>[
                   Flexible(
                     child: Padding(
-                      padding: const EdgeInsets.all(edgeInset),
+                      padding: const EdgeInsets.only(left: edgeInsetLeft,  top: edgeInsetBottom),
                       child: Text(
                         aTeam.getTrainerList(),
-                        //buildTrainerList(snapshot.data['trainer']),
                         maxLines: 1,
                         overflow: TextOverflow.ellipsis,
                         style: TextStyle(
@@ -128,37 +128,5 @@ class _TeamPageState extends State<TeamPage> {
               ),
             ])
     );
-  }
-
-  String buildTrainingString(data) {
-    String training = "";
-
-    if (data != null) {
-      training = "Training: ";
-      Map trainingMap = new Map<String, dynamic>.from(data);
-      training = training + trainingMap['day'];
-      training = training + ", " + trainingMap['time'];
-      training = training + ", " + trainingMap['location'];
-    }
-    return training;
-  }
-
-  String buildTrainerList(value) {
-    String trainers = "";
-    if (value != null) {
-      trainers = "Trainer: ";
-      Map trainersMap = new Map<String, dynamic>.from(value);
-      trainers = trainers + trainersMap['head'];
-      if (trainersMap.containsKey('support1')) {
-        trainers = trainers + ", " + trainersMap['support1'];
-      }
-      if (trainersMap.containsKey('support2')) {
-        trainers = trainers + ", " + trainersMap['support2'];
-      }
-      if (trainersMap.containsKey('support3')) {
-        trainers = trainers + ", " + trainersMap['support3'];
-      }
-    }
-    return trainers;
   }
 }
