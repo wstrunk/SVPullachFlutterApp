@@ -25,7 +25,7 @@ class SvpDrawer extends StatelessWidget {
           DrawerHeader(
             child: Text('SV Pullach App'),
             decoration: BoxDecoration(
-              color: Colors.blue,
+              color: Colors.yellow,
             ),
           ),
           ListTile(

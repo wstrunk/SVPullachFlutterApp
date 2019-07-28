@@ -13,9 +13,12 @@ class SvpScaffold extends StatelessWidget {
         body: body,
         appBar: AppBar(
           title: Text('SV Pullach Handball'),
+          backgroundColor: Colors.yellow,
           actions: <Widget>[
           ],
-        ),        endDrawer: SvpDrawer()
+          leading: new Container(),
+        ), endDrawer: SvpDrawer()
+
     );
   }
 }
