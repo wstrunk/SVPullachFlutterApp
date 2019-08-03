@@ -4,8 +4,9 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:flutter_app/src/Team.dart';
-import 'package:flutter_app/src/Widgets/SvpScaffold.dart';
+import 'package:svpullach/src/Team.dart';
+import 'package:svpullach/src/Widgets/SvpScaffold.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class TeamPage extends StatefulWidget {
 
@@ -53,6 +54,14 @@ class _TeamPageState extends State<TeamPage> {
   static const double edgeInsetLeft = 16.0;
   static const double edgeInsetBottom = 10.0;
 
+  _launchEmail(String toMailId, String subject, String body) async {
+    var url = 'mailto:$toMailId?subject=$subject&body=$body';
+    if (await canLaunch(url)) {
+      await launch(url);
+    } else {
+      throw 'Could not launch $url';
+    }
+  }
 
   Widget _buildCard(BuildContext context, DocumentSnapshot snapshot) {
     // we should create a team object here
@@ -83,6 +92,7 @@ class _TeamPageState extends State<TeamPage> {
                   ),
                   IconButton(
                     onPressed: () {
+                      _launchEmail(aTeam.eMail, 'Anfrage ' +  aTeam.teamName, 'Lieber Trainer/liebe Trainerin der ' + aTeam.teamName);
                       //snapshot.reference.updateData({"isDone": true});
                     },
                     icon: Icon(

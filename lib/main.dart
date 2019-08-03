@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_native_web/flutter_native_web.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/foundation.dart';
-import 'package:flutter_app/src/Widgets/SvpScaffold.dart';
+import 'package:svpullach/src/Widgets/SvpScaffold.dart';
 
 
 void main() => runApp(new MyApp());
@@ -56,17 +56,13 @@ class _MyAppState extends State<MyApp> {
   '<h1>Sportverein Pullach i. Isartal e.V.</h1>' +
   '<h4>Abteilung Handball im Deutschen Handballbund (DHB)</h4>' +
   '<p>Vereinsregister (Hauptverein): Amtsgericht München, VR 8796</p>' +
-  '<p>Gistlstraße. 2<br>' +
-  'D-82049 Pullach i.Isartal</p>' +
+  '<p>Gistlstraße. 2, D-82049 Pullach i.Isartal</p>' +
   '<p>Vertretungsberechtigt für den SV Pullach Abt. Handball ist der Vorsitzende<br>' +
-  'Dirk Trautmann<br>' +
-  'Kastanienallee 6, 82049 Pullach<br>' +
+  'Dirk Trautmann, Kastanienallee 6, 82049 Pullach<br>' +
   'E-Mail: <a href="mailto:vorstand@svpullach-handball.de">vorstand@svpullach-handball.de</a></p>' +
-  '<p>sowie dessen Stellvertreter</p>' +
-  '<p style="font-weight: 400;">Benedikt Thelen<br>' +
-  'Wolfratshauser Str. 76, 82049 Pullach<br>' +
+  '<p>sowie dessen Stellvertreter' +
+  'Benedikt Thelen, Wolfratshauser Str. 76, 82049 Pullach<br>' +
   'E-Mail:<span>&nbsp;</span><a href="mailto:benedikt.thelen@svpullach-handball.de">benedikt.thelen@svpullach-handball.de</a></p>' +
-
   '<h1>Sponsoren</h1>' +
   '<table>' +
   '<tbody>' +

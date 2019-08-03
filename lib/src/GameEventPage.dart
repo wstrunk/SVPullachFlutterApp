@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:flutter_app/src/Widgets/SvpScaffold.dart';
+import 'package:svpullach/src/Widgets/SvpScaffold.dart';
 import 'package:add_2_calendar/add_2_calendar.dart';
 import 'package:flutter/services.dart';
 
@@ -73,8 +73,8 @@ class _GameEventPageState extends State<GameEventPage> {
       child: StreamBuilder<QuerySnapshot>(
         stream: Firestore.instance
             .collection("game_events")
-            .where("day", isGreaterThanOrEqualTo: nowString)
-        .orderBy("day")
+            .where("timestamp", isGreaterThanOrEqualTo: now.millisecondsSinceEpoch)
+        .orderBy("timestamp")
         .orderBy("league")
             .snapshots(),
         builder: (context, snapshot) {

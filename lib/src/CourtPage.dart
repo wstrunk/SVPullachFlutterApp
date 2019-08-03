@@ -3,9 +3,9 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:flutter_app/src/Court.dart';
-import 'package:flutter_app/src/CourtDetails.dart';
-import 'package:flutter_app/src/Widgets/SvpScaffold.dart';
+import 'package:svpullach/src/Court.dart';
+import 'package:svpullach/src/CourtDetails.dart';
+import 'package:svpullach/src/Widgets/SvpScaffold.dart';
 import 'package:google_maps_webservice/places.dart';
 import 'package:flutter_google_places/flutter_google_places.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
@@ -24,24 +24,46 @@ class _CourtPageState extends State<CourtPage> {
   Completer<GoogleMapController> _mapController = Completer();
   static const LatLng _center = const LatLng(48.060286, 11.513958);
   List<Court> _places = new List();
+  TextEditingController editingController = TextEditingController();
+  List<String> startFilter = new List();
+  List<String> endFilter = new List();
 
+  String filterString = "";
+  
   @override
   Widget build(BuildContext context) {
     return SvpScaffold(
       body: Column(
         children: <Widget>[
-          _buildContent(context),
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: TextField(
+                onSubmitted: (value) {
+                   filterSearchResults(value);
+                },
+                controller: editingController,
+                decoration: InputDecoration(
+                    labelText: "Suche",
+                    hintText: "Suche Hallenname",
+                    prefixIcon: Icon(Icons.search),
+                    border: OutlineInputBorder(
+                        borderRadius: BorderRadius.all(Radius.circular(25.0)))),
+              ),
+            ),
+			_buildContent(context,filterString),
         ],
       ),
     );
   }
 
-  Widget _buildContent(BuildContext context) {
+  Widget _buildContent(BuildContext context, [String filterString]) {
     return Expanded(
       child: StreamBuilder<QuerySnapshot>(
         stream: Firestore.instance
             .collection("courts")
             .orderBy("courtName")
+//            .where("courtName",  isLessThanOrEqualTo:  filterString + "\uf8ff")
+               .startAt(startFilter).endAt(endFilter)
             .snapshots(),
         builder: (context, snapshot) {
           if (!snapshot.hasData) return LinearProgressIndicator();
@@ -55,6 +77,22 @@ class _CourtPageState extends State<CourtPage> {
       ),
     );
   }
+  void filterSearchResults(String query) {
+    List<String> dummySearchList = List<String>();
+    if((query.isNotEmpty) && (query.length >=4)) {
+      // reload from firebase with where set
+      filterString = query;
+      startFilter.clear();
+      startFilter.add(filterString);
+      endFilter.clear();
+      endFilter.add(filterString + "\uf8ff");
+     _buildContent( context, query);
+      return;
+    } else {
+      return;
+	  }
+  }
+	
 
   Widget _buildCard(BuildContext context, Court court) {
     return Card(
@@ -128,6 +166,7 @@ class _CourtPageState extends State<CourtPage> {
 
     if (snapshots != null) {
       for (DocumentSnapshot snap in snapshots) {
+        if (snap.data['courtName'].toString().startsWith(filterString)){
         if (snap.data['latitude'] != null){
           newLatLng =  new LatLng(
             double.parse(snap.data['latitude'].toString()),
@@ -143,6 +182,7 @@ class _CourtPageState extends State<CourtPage> {
             courtUrl: snap.data['courtUrl']);
         _places.add(newCourt);
       }
+        }
     }
   }
 }
@@ -186,4 +226,5 @@ class _Map extends StatelessWidget {
       ),
     );
   }
+  
 }

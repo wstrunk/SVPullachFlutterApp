@@ -1,8 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_app/src/GameEventPage.dart';
-import 'package:flutter_app/src/CourtPage.dart';
-import 'package:flutter_app/src/TeamPage.dart';
+import 'package:svpullach/src/GameEventPage.dart';
+import 'package:svpullach/src/CourtPage.dart';
+import 'package:svpullach/src/TeamPage.dart';
+import 'package:svpullach/src/ReportPage.dart';
+
 
 class SvpDrawer extends StatelessWidget {
   const SvpDrawer({
@@ -46,6 +48,10 @@ class SvpDrawer extends StatelessWidget {
               // ...
               // Then close the drawer
               Navigator.pop(context);
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => ReportPage()),
+              );
             },
           ),
           ListTile(

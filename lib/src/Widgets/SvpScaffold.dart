@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_app/src/Widgets/SvpDrawer.dart';
+import 'package:svpullach/src/Widgets/SvpDrawer.dart';
 
 class SvpScaffold extends StatelessWidget {
 

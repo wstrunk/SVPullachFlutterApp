@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 
 class Team {
   Team({@required this.teamName,
     this.trainer,
+    this.eMail,
     @required this.training1,
     })
       : assert(teamName != null),
@@ -13,6 +13,7 @@ class Team {
         assert(training1 != null);
 
   String teamName;
+  String eMail;
   String trainer;
   List<String> additionalTrainer = new List();
 
@@ -31,17 +32,20 @@ class Team {
   }
 
   Team copyWith(
-      {String teamName, String trainer, String training1}) {
+      {String teamName, String eMail, String trainer, String training1}) {
     return Team(
       teamName: teamName ?? this.teamName,
       trainer: trainer ?? this.trainer,
       training1: training1 ?? this.training1,
+        eMail: eMail?? this.eMail,
     );
   }
   Team.fromSnapshot(DocumentSnapshot snapshot){
     teamName = snapshot.data['name'];
     Map trainersMap = new Map<String, dynamic>.from(snapshot.data['trainer']);
     trainer = trainersMap['head'];
+    eMail = snapshot.data['email'];
+
     if (trainersMap.containsKey('support1')) {
       additionalTrainer.add(trainersMap['support1']);
     }

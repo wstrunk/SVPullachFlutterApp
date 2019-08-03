@@ -1,4 +1,4 @@
-package de.stwerkstatt.flutterapp;
+package de.stwerkstatt.svpullach;
 
 import android.os.Bundle;
 import io.flutter.app.FlutterActivity;
