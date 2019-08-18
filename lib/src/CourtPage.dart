@@ -63,7 +63,7 @@ class _CourtPageState extends State<CourtPage> {
             .collection("courts")
             .orderBy("courtName")
 //            .where("courtName",  isLessThanOrEqualTo:  filterString + "\uf8ff")
-               .startAt(startFilter).endAt(endFilter)
+//               .startAt(startFilter).endAt(endFilter)
             .snapshots(),
         builder: (context, snapshot) {
           if (!snapshot.hasData) return LinearProgressIndicator();

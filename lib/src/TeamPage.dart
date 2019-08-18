@@ -1,5 +1,3 @@
-import 'dart:collection';
-import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
@@ -7,6 +5,8 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:svpullach/src/Team.dart';
 import 'package:svpullach/src/Widgets/SvpScaffold.dart';
 import 'package:url_launcher/url_launcher.dart';
+
+import 'TeamDetails.dart';
 
 class TeamPage extends StatefulWidget {
 
@@ -66,77 +66,90 @@ class _TeamPageState extends State<TeamPage> {
   Widget _buildCard(BuildContext context, DocumentSnapshot snapshot) {
     // we should create a team object here
     var aTeam = new Team.fromSnapshot(snapshot);
+    //aTeam.initiate();
 
 
     return Card(
         elevation: 2.0,
         margin: EdgeInsets.only(bottom: 16),
-        child: Column(
-            children: <Widget>[
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: <Widget>[
-                  Flexible(
-                    child: Padding(
-                      padding: const EdgeInsets.only(left: edgeInsetLeft,  top: edgeInsetBottom),
-                      child: Text(
-                        aTeam.teamName,
-                        //snapshot.data['name'],
-                        maxLines: 1,
-                        overflow: TextOverflow.ellipsis,
-                        style: TextStyle(
-                          fontWeight: FontWeight.bold,
+        child: InkWell(
+          onTap: () {
+          // Update the state of the app
+          Navigator.push(
+          context,   MaterialPageRoute(builder: (context) => TeamDetails (team: aTeam,)),
+        );},
+          child: Column(
+              children: <Widget>[
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: <Widget>[
+                    Flexible(
+                      child: Padding(
+                        padding: const EdgeInsets.only(
+                            left: edgeInsetLeft, top: edgeInsetBottom),
+                        child: Text(
+                          aTeam.teamName,
+                          //snapshot.data['name'],
+                          maxLines: 1,
+                          overflow: TextOverflow.ellipsis,
+                          style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                          ),
                         ),
                       ),
                     ),
-                  ),
-                  IconButton(
-                    onPressed: () {
-                      _launchEmail(aTeam.eMail, 'Anfrage ' +  aTeam.teamName, 'Lieber Trainer/liebe Trainerin der ' + aTeam.teamName);
-                      //snapshot.reference.updateData({"isDone": true});
-                    },
-                    icon: Icon(
-                      Icons.email,
-                      color: Colors.blue,
+                    IconButton(
+                      onPressed: () {
+                        _launchEmail(aTeam.eMail, 'Anfrage ' + aTeam.teamName,
+                            'Lieber Trainer/liebe Trainerin der ' +
+                                aTeam.teamName);
+                        //snapshot.reference.updateData({"isDone": true});
+                      },
+                      icon: Icon(
+                        Icons.email,
+                        color: Colors.blue,
+                      ),
                     ),
-                  ),
-                ],
-              ),
-              Row(
-                children: <Widget>[
-                  Flexible(
-                    child: Padding(
-                      padding: const EdgeInsets.only(left: edgeInsetLeft,  top: edgeInsetBottom),
-                      child: Text(
-                        aTeam.training1,
-                        maxLines: 1,
-                        overflow: TextOverflow.ellipsis,
-                        style: TextStyle(
-                          fontWeight: FontWeight.bold,
+                  ],
+                ),
+                Row(
+                  children: <Widget>[
+                    Flexible(
+                      child: Padding(
+                        padding: const EdgeInsets.only(
+                            left: edgeInsetLeft, top: edgeInsetBottom),
+                        child: Text(
+                          aTeam.training1,
+                          maxLines: 1,
+                          overflow: TextOverflow.ellipsis,
+                          style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                          ),
                         ),
                       ),
                     ),
-                  ),
-                ],
-              ),
-              Row(
-                children: <Widget>[
-                  Flexible(
-                    child: Padding(
-                      padding: const EdgeInsets.only(left: edgeInsetLeft,  top: edgeInsetBottom),
-                      child: Text(
-                        aTeam.getTrainerList(),
-                        maxLines: 1,
-                        overflow: TextOverflow.ellipsis,
-                        style: TextStyle(
-                          fontWeight: FontWeight.bold,
+                  ],
+                ),
+                Row(
+                  children: <Widget>[
+                    Flexible(
+                      child: Padding(
+                        padding: const EdgeInsets.only(
+                            left: edgeInsetLeft, top: edgeInsetBottom),
+                        child: Text(
+                          aTeam.getTrainerList(),
+                          maxLines: 1,
+                          overflow: TextOverflow.ellipsis,
+                          style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                          ),
                         ),
                       ),
                     ),
-                  ),
-                ],
-              ),
-            ])
+                  ],
+                ),
+              ]),
+        )
     );
   }
 }

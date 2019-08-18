@@ -91,18 +91,12 @@ class CourtDetailsState extends State<CourtDetails> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        backgroundColor: Colors.yellow,
         title: Text('${_place.courtName}'),
 //        backgroundColor: Colors.green[700],
         actions: <Widget>[
           Padding(
             padding: const EdgeInsets.fromLTRB(0.0, 0.0, 8.0, 0.0),
-            child: IconButton(
-              icon: const Icon(Icons.save, size: 30.0),
-              onPressed: () {
-//                widget.onChanged(_place);
-                Navigator.pop(context);
-              },
-            ),
           ),
         ],
       ),
