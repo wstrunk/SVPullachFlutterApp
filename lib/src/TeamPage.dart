@@ -2,11 +2,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:svpullach/src/Team.dart';
 import 'package:svpullach/src/Widgets/SvpScaffold.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 import 'TeamDetails.dart';
+import 'bloc/Authentication/bloc.dart';
 
 class TeamPage extends StatefulWidget {
 
@@ -24,7 +26,16 @@ class _TeamPageState extends State<TeamPage> {
       body: Column(
         children: <Widget>[
           _buildContent(context),
+          IconButton(
+            icon: Icon(Icons.exit_to_app),
+            onPressed: () {
+              BlocProvider.of<AuthenticationBloc>(context).add(
+                LoggedOut(),
+              );
+            },
+          )
         ],
+
       ),
 
     );
@@ -45,6 +56,7 @@ class _TeamPageState extends State<TeamPage> {
             children: snapshot.data.documents
                 .map((snap) => _buildCard(context, snap))
                 .toList(),
+
           );
         },
       ),

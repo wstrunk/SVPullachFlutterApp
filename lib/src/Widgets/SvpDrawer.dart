@@ -4,6 +4,7 @@ import 'package:svpullach/src/GameEventPage.dart';
 import 'package:svpullach/src/CourtPage.dart';
 import 'package:svpullach/src/TeamPage.dart';
 import 'package:svpullach/src/ReportPage.dart';
+import 'package:svpullach/src/pages/AppPreferencesPage.dart';
 
 
 class SvpDrawer extends StatelessWidget {
@@ -80,13 +81,16 @@ class SvpDrawer extends StatelessWidget {
               );
               // ...
             },
-          ),          ListTile(
+          ), ListTile(
             title: Text('Einstellungen'),
             onTap: () {
-              // Update the state of the app
-              // ...
               // Then close the drawer
               Navigator.pop(context);
+              // Update the state of the app
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => AppPreferencesPage()),
+              );
             },
           ),
         ],

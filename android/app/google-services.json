@@ -10,10 +10,23 @@
       "client_info": {
         "mobilesdk_app_id": "1:4231447075:android:4cafc2ecc05e0fe5",
         "android_client_info": {
-          "package_name": "de.stwerkstatt.svpullach"
+          "package_name": "de.stwerkstatt.flutterapp"
         }
       },
-      "oauth_client": [],
+      "oauth_client": [
+        {
+          "client_id": "4231447075-fgf5fg2of231lo5rba32132523k6ps86.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "de.stwerkstatt.flutterapp",
+            "certificate_hash": "a27838ef06740c52861b341f9a56155803e991a6"
+          }
+        },
+        {
+          "client_id": "4231447075-fv2afvpckthvklg3lb14dof3v9583m6p.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
       "api_key": [
         {
           "current_key": "AIzaSyDIhFPrfZ18OH920wYM7jbTWRgXlwX9MeQ"
@@ -25,6 +38,13 @@
             {
               "client_id": "4231447075-fv2afvpckthvklg3lb14dof3v9583m6p.apps.googleusercontent.com",
               "client_type": 3
+            },
+            {
+              "client_id": "4231447075-bfi9uvv2tg94f5igi1akc9dfm2tjn9gd.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.flutterExample1"
+              }
             }
           ]
         }
@@ -37,7 +57,12 @@
           "package_name": "de.stwerkstatt.svplistteamsflutterapp"
         }
       },
-      "oauth_client": [],
+      "oauth_client": [
+        {
+          "client_id": "4231447075-fv2afvpckthvklg3lb14dof3v9583m6p.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
       "api_key": [
         {
           "current_key": "AIzaSyDIhFPrfZ18OH920wYM7jbTWRgXlwX9MeQ"
@@ -49,6 +74,65 @@
             {
               "client_id": "4231447075-fv2afvpckthvklg3lb14dof3v9583m6p.apps.googleusercontent.com",
               "client_type": 3
+            },
+            {
+              "client_id": "4231447075-bfi9uvv2tg94f5igi1akc9dfm2tjn9gd.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.flutterExample1"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:4231447075:android:3842151b988d9b55a2a796",
+        "android_client_info": {
+          "package_name": "de.stwerkstatt.svpullach"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "4231447075-ju1o149jejl1edo2msp5g35ocek4bvil.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "de.stwerkstatt.svpullach",
+            "certificate_hash": "a27838ef06740c52861b341f9a56155803e991a6"
+          }
+        },
+        {
+          "client_id": "4231447075-r1v7c8huav9ao3aosi9fbvaj6mlp72ki.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "de.stwerkstatt.svpullach",
+            "certificate_hash": "1bb02ca36aecc372c2518a834344ec3f54f8f265"
+          }
+        },
+        {
+          "client_id": "4231447075-fv2afvpckthvklg3lb14dof3v9583m6p.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDIhFPrfZ18OH920wYM7jbTWRgXlwX9MeQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "4231447075-fv2afvpckthvklg3lb14dof3v9583m6p.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "4231447075-bfi9uvv2tg94f5igi1akc9dfm2tjn9gd.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.flutterExample1"
+              }
             }
           ]
         }
@@ -63,12 +147,8 @@
       },
       "oauth_client": [
         {
-          "client_id": "4231447075-k6nqqdrgfj29mpd6lkhqhagr3hg8kkpt.apps.googleusercontent.com",
-          "client_type": 1,
-          "android_info": {
-            "package_name": "de.stwerkstatt.svpullach.cloudapplication",
-            "certificate_hash": "f7d0298cc82e6644b1a78360589d799081ade7f0"
-          }
+          "client_id": "4231447075-fv2afvpckthvklg3lb14dof3v9583m6p.apps.googleusercontent.com",
+          "client_type": 3
         }
       ],
       "api_key": [
@@ -82,6 +162,13 @@
             {
               "client_id": "4231447075-fv2afvpckthvklg3lb14dof3v9583m6p.apps.googleusercontent.com",
               "client_type": 3
+            },
+            {
+              "client_id": "4231447075-bfi9uvv2tg94f5igi1akc9dfm2tjn9gd.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.flutterExample1"
+              }
             }
           ]
         }
