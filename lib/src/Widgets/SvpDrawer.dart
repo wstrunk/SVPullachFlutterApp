@@ -5,6 +5,7 @@ import 'package:svpullach/src/CourtPage.dart';
 import 'package:svpullach/src/TeamPage.dart';
 import 'package:svpullach/src/ReportPage.dart';
 
+import '../InventoryPage.dart';
 
 class SvpDrawer extends StatelessWidget {
   const SvpDrawer({
@@ -36,8 +37,8 @@ class SvpDrawer extends StatelessWidget {
               Navigator.pop(context);
               // Update the state of the app
               Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => GameEventPage ()),
+                context,
+                MaterialPageRoute(builder: (context) => GameEventPage()),
               );
             },
           ),
@@ -80,7 +81,8 @@ class SvpDrawer extends StatelessWidget {
               );
               // ...
             },
-          ),          ListTile(
+          ),
+          ListTile(
             title: Text('Einstellungen'),
             onTap: () {
               // Update the state of the app
@@ -89,6 +91,19 @@ class SvpDrawer extends StatelessWidget {
               Navigator.pop(context);
             },
           ),
+          ListTile(
+            title: Text('Vorräte'),
+            onTap: () {
+              // Then close the drawer
+              Navigator.pop(context);
+              // Update the state of the app
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => InventoryPage()),
+              );
+              // ...
+            },
+          )
         ],
       ),
     );
