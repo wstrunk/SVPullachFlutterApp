@@ -24,6 +24,8 @@ if (flutterVersionName == null) {
 
 
 apply plugin: 'com.android.application'
+apply plugin: 'com.google.gms.google-services'
+
 apply from: "$flutterRoot/packages/flutter_tools/gradle/flutter.gradle"
 
 android {
@@ -35,7 +37,7 @@ android {
 
     defaultConfig {
         // TODO: Specify your own unique Application ID (https://developer.android.com/studio/build/application-id.html).
-        applicationId "de.stwerkstatt.sv_pullach_flutter_app"
+        applicationId "de.stwerkstatt.svpullach"
         minSdkVersion 16
         targetSdkVersion 28
         multiDexEnabled true
