@@ -35,7 +35,7 @@ class _MyAppState extends State<MyApp> {
                     initialUrl: 'about:blank',
                     onWebViewCreated: (WebViewController webViewController) {
                       _controller = webViewController;
-                      _loadHtmlFromAssets();
+                      _loadHtmlFromString();
                     },
                   ),
                   height: 600.0,
@@ -75,7 +75,7 @@ class _MyAppState extends State<MyApp> {
       '</body>'  ;
 
 
-  _loadHtmlFromAssets() async {
+  _loadHtmlFromString() async {
     _controller.loadUrl( Uri.dataFromString(
         html,
         mimeType: 'text/html',
@@ -83,14 +83,4 @@ class _MyAppState extends State<MyApp> {
     ).toString());
   }
 
-//  void onWebCreated(webController) {
-//    this.webController = webController;
-//    this.webController.loadUrl("https://www.amazon.com");
-//    this.webController.onPageStarted.listen((url) =>
-//        print("Loading $url")
-//    );
-//    this.webController.onPageFinished.listen((url) =>
-//        print("Finished loading $url")
-//    );
-//  }
 }
