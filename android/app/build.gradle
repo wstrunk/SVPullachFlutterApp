@@ -55,6 +55,7 @@ android {
             keyAlias System.getenv("APPCENTER_KEY_ALIAS")
             keyPassword System.getenv("APPCENTER_KEY_PASSWORD")
         }
+    }
 }
 
 flutter {
