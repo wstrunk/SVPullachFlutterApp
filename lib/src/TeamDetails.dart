@@ -1,7 +1,9 @@
+import 'dart:convert';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_native_web/flutter_native_web.dart';
 import 'package:svpullach/src/Team.dart';
+import 'package:webview_flutter/webview_flutter.dart';
 
 class TeamDetails extends StatefulWidget {
   const TeamDetails ({
@@ -21,23 +23,10 @@ class TeamDetailsState extends State<TeamDetails> {
   static const double edgeInsetLeft = 16.0;
   static const double edgeInsetBottom = 10.0;
 
-  WebController webController;
+  WebViewController _controller;
 
-  void onWebCreated(webController) {
-    this.webController = webController;
-    this.webController.loadData(widget.team.standings);
-    this.webController.onPageStarted.listen((url) =>
-        print("Loading $url")
-    );
-    this.webController.onPageFinished.listen((url) =>
-        print("Finished loading $url")
-    );
-  }
   @override
   Widget build(BuildContext context) {
-    FlutterNativeWeb flutterWebView = new FlutterNativeWeb(
-        onWebCreated: onWebCreated
-    );
     return
       new Scaffold(
         appBar: AppBar(
@@ -112,7 +101,13 @@ class TeamDetailsState extends State<TeamDetails> {
                   ],
                 ),
                 new Container(
-                  child: flutterWebView,
+                  child: WebView(
+                    initialUrl: 'about:blank',
+                    onWebViewCreated: (WebViewController webViewController) {
+                      _controller = webViewController;
+                      _loadHtmlFromAssets();
+                    },
+                  ),
                   height: 600.0,
                   width: 500.0,
                 ),
@@ -121,7 +116,13 @@ class TeamDetailsState extends State<TeamDetails> {
           );
   }
 
-
+  _loadHtmlFromAssets() async {
+    _controller.loadUrl( Uri.dataFromString(
+        widget.team.getStandings(),
+        mimeType: 'text/html',
+        encoding: Encoding.getByName('utf-8')
+    ).toString());
+  }
   @override
   initState() {
   // get the teams table from nuliga if not already loaded and story into team

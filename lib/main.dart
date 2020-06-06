@@ -1,10 +1,9 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 
-//import 'package:flutter_app/src/Widgets/flutter_native_web.dart';
-import 'package:flutter_native_web/flutter_native_web.dart';
-import 'package:flutter/gestures.dart';
-import 'package:flutter/foundation.dart';
 import 'package:svpullach/src/Widgets/SvpScaffold.dart';
+import 'package:webview_flutter/webview_flutter.dart';
 
 
 void main() => runApp(new MyApp());
@@ -16,7 +15,7 @@ class MyApp extends StatefulWidget {
 
 class _MyAppState extends State<MyApp> {
 
-  WebController webController;
+  WebViewController _controller;
 
   @override
   void initState() {
@@ -26,22 +25,19 @@ class _MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
 
-    FlutterNativeWeb flutterWebView = new FlutterNativeWeb(
-      onWebCreated: onWebCreated,
-      gestureRecognizers: <Factory<OneSequenceGestureRecognizer>>[
-        Factory<OneSequenceGestureRecognizer>(
-              () => TapGestureRecognizer(),
-        ),
-      ].toSet(),
-    );
-
     return new MaterialApp(
       home: new SvpScaffold(
           body: new SingleChildScrollView(
             child: new Column(
               children: <Widget>[
                 new Container(
-                  child: flutterWebView,
+                  child: WebView(
+                    initialUrl: 'about:blank',
+                    onWebViewCreated: (WebViewController webViewController) {
+                      _controller = webViewController;
+                      _loadHtmlFromAssets();
+                    },
+                  ),
                   height: 600.0,
                   width: 500.0,
                 ),
@@ -79,15 +75,12 @@ class _MyAppState extends State<MyApp> {
       '</body>'  ;
 
 
-  void onWebCreated(webController) {
-    this.webController = webController;
-    this.webController.loadData(html);
-    this.webController.onPageStarted.listen((url) =>
-        print("Loading $url")
-    );
-    this.webController.onPageFinished.listen((url) =>
-        print("Finished loading $url")
-    );
+  _loadHtmlFromAssets() async {
+    _controller.loadUrl( Uri.dataFromString(
+        html,
+        mimeType: 'text/html',
+        encoding: Encoding.getByName('utf-8')
+    ).toString());
   }
 
 //  void onWebCreated(webController) {
