@@ -29,11 +29,11 @@
 build/
 
 # Android related
-**/android/**/gradle-wrapper.jar
+# remove for app center build **/android/**/gradle-wrapper.jar
 **/android/.gradle
 **/android/captures/
-**/android/gradlew
-**/android/gradlew.bat
+# remove for app center build **/android/gradlew
+# remove for app center build **/android/gradlew.bat
 **/android/local.properties
 **/android/key.properties
 **/android/**/GeneratedPluginRegistrant.java

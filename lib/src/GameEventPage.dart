@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:svpullach/src/Widgets/SvpScaffold.dart';
-import 'package:add_2_calendar/add_2_calendar.dart';
+//import 'package:add_2_calendar/add_2_calendar.dart';
 import 'package:flutter/services.dart';
 
 class GameEventPage extends StatefulWidget {
@@ -35,15 +35,15 @@ class _GameEventPageState extends State<GameEventPage> {
     var startTimeString = snapshot.data['time'];
     var startTime = _parse(startDate + " " + startTimeString);
 
-    final Event event = Event(
-      title: league + ": " + homeTeam + " - " + guestTeam,
-      description: 'Event description',
-      location: snapshot.data['court'],
-      startDate: startTime,
-      endDate: startTime.add(Duration(hours: 1)),
-      allDay: false,
-    );
-    Add2Calendar.addEvent2Cal(event);
+//    final Event event = Event(
+//      title: league + ": " + homeTeam + " - " + guestTeam,
+//      description: 'Event description',
+//      location: snapshot.data['court'],
+//      startDate: startTime,
+//      endDate: startTime.add(Duration(hours: 1)),
+//      allDay: false,
+//    );
+//    Add2Calendar.addEvent2Cal(event);
   }
 
   @override

@@ -78,7 +78,7 @@ class _TeamPageState extends State<TeamPage> {
   Widget _buildCard(BuildContext context, DocumentSnapshot snapshot) {
     // we should create a team object here
     var aTeam = new Team.fromSnapshot(snapshot);
-    //aTeam.initiate();
+    aTeam.initiate();
 
 
     return Card(
